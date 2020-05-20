@@ -121,8 +121,11 @@ class GeoJSONSource extends Champlain.TileSource {
 
     _parsePoint(coordinates, properties) {
         let name = null;
-        if (properties)
+        let website = null;
+        if (properties) {
             name = properties.name;
+            website = properties.website;
+        }
 
         this._validate(coordinates);
         this._bbox.extend(coordinates[1],
@@ -134,6 +137,7 @@ class GeoJSONSource extends Champlain.TileSource {
         });
 
         let place = new Place.Place({ name: name,
+                                      website: website,
                                       store: false,
                                       location: location });
         let placeMarker = new PlaceMarker.PlaceMarker({ place: place,
